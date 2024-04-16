@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import Profile from "@components/Profile";
+import { set } from "mongoose";
 
 const MyProfile = () => {
     const { data: session } = useSession();
@@ -33,10 +34,10 @@ const MyProfile = () => {
           await fetch(`/api/prompt/${post._id.toString()}`, {
             method: "DELETE",
           });
-  
-          const filteredPosts = myPosts.filter((item) => item._id !== post._id);
-  
-          setMyPosts(filteredPosts);
+          
+          // client side changes 
+          const filteredPosts = posts.filter((item) => item._id !== post._id);
+          setPosts(filteredPosts);
         } catch (error) {
           console.log(error);
         }
